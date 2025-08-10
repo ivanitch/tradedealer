@@ -24,3 +24,12 @@ docker exec -it tradedealer_php-fpm /bin/bash
 ```bash  
 docker exec -it tradedealer_php-fpm composer install
 ```
+
+## Миграции
+```bash  
+docker exec -it tradedealer_php-fpm php yii migrate
+```
+> Можно взять первоначальные тестовые данные в файле `data/init.sql`
+
+
+
