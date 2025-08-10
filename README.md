@@ -7,12 +7,20 @@
 ![PHP-FPM](https://img.shields.io/badge/PHP_FPM-8.4-777BB4?logo=php&logoColor=white)
 ![MariaDB](https://img.shields.io/badge/MariaDB-11.8-003545)
 
-## Установка проекта
+## Установка
 ```bash
 git clone git@github.com:ivanitch/tradedealer.git tradedealer
 ```
 
-## Запуск Docker
+## Docker
 ```bash  
 docker compose up -d --build
+
+# Container
+docker exec -it tradedealer_php-fpm /bin/bash
+```
+
+## Composer
+```bash  
+docker exec -it tradedealer_php-fpm composer install
 ```
