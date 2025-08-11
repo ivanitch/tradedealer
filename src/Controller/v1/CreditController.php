@@ -1,26 +1,27 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Controller\v1;
 
-use App\Model\CreditRequest;
+
+use App\Controller\BaseRestController;
 use App\Model\Form\CreditCalculateForm;
 use App\Service\CreditCalculationService;
-use Exception;
-use Yii;
-use yii\rest\Controller;
-use yii\web\BadRequestHttpException;
+use App\Service\CreditRequestService;
 use yii\web\NotFoundHttpException;
+use yii\web\BadRequestHttpException;
+use Exception;
 
-class CreditController extends Controller
+class CreditController extends BaseRestController
 {
-    private CreditCalculationService $creditCalculationService;
-
-    public function __construct($id, $module, CreditCalculationService $creditCalculationService, $config = [])
+    public function __construct(
+        $id,
+        $module,
+        private readonly CreditCalculationService $creditCalculationService,
+        private readonly CreditRequestService $requestService,
+        $config = []
+    )
     {
         parent::__construct($id, $module, $config);
-        $this->creditCalculationService = $creditCalculationService;
     }
 
     /**
@@ -34,9 +35,13 @@ class CreditController extends Controller
     {
         $calculateForm = new CreditCalculateForm();
 
-        $calculateForm->price          = (int)Yii::$app->request->get('price');
-        $calculateForm->initialPayment = (float)Yii::$app->request->get('initialPayment');
-        $calculateForm->loanTerm       = (int)Yii::$app->request->get('loanTerm');
+        $calculateForm->price          = isset($this->args['price']) ? (int)$this->args['price'] : null;
+        $calculateForm->initialPayment = isset($this->args['initialPayment']) ? (float)$this->args['initialPayment'] : null;
+        $calculateForm->loanTerm       = isset($this->args['loanTerm']) ? (int)$this->args['loanTerm'] : null;
+
+        if (is_null($calculateForm->price) || is_null($calculateForm->initialPayment) || is_null($calculateForm->loanTerm)) {
+            throw new BadRequestHttpException('Missing or invalid required parameters.');
+        }
 
         if (!$calculateForm->validate()) {
             throw new BadRequestHttpException('Validation failed: ' . print_r($calculateForm->getErrors(), true));
@@ -58,24 +63,19 @@ class CreditController extends Controller
      */
     public function actionRequest(): array
     {
-        $request = new CreditRequest();
+        $carId          = isset($this->bodyParams['carId']) ? (int)$this->bodyParams['carId'] : null;
+        $programId      = isset($this->bodyParams['programId']) ? (int)$this->bodyParams['programId'] : null;
+        $initialPayment = isset($this->bodyParams['initialPayment']) ? (float)$this->bodyParams['initialPayment'] : null;
+        $loanTerm       = isset($this->bodyParams['loanTerm']) ? (int)$this->bodyParams['loanTerm'] : null;
 
-        $bodyParams = Yii::$app->request->getBodyParams();
-
-        $request->car_id          = isset($bodyParams['carId']) ? (int)$bodyParams['carId'] : null;
-        $request->program_id      = isset($bodyParams['programId']) ? (int)$bodyParams['programId'] : null;
-        $request->initial_payment = isset($bodyParams['initialPayment']) ? (float)$bodyParams['initialPayment'] : null;
-        $request->loan_term       = isset($bodyParams['loanTerm']) ? (int)$bodyParams['loanTerm'] : null;
-
-        if (!$request->validate()) {
-            throw new BadRequestHttpException('Validation failed: ' . print_r($request->getErrors(), true));
+        if (is_null($carId) || is_null($programId) || is_null($initialPayment) || is_null($loanTerm)) {
+            throw new BadRequestHttpException('Missing or invalid required parameters.');
         }
 
-        if ($request->save()) {
+        if ($this->requestService->save($carId, $programId, $initialPayment, $loanTerm)) {
             return ['success' => true];
         } else {
-            Yii::error('Failed to save request: ' . print_r($request->getErrors(), true), __METHOD__);
-            throw new BadRequestHttpException('Failed to save request: ' . print_r($request->getErrors(), true));
+            throw new BadRequestHttpException('Failed to process request.');
         }
     }
 }

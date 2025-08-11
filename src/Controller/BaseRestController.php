@@ -13,6 +13,7 @@ use yii\web\Response;
 class BaseRestController extends Controller
 {
     protected mixed $args;
+    protected mixed $bodyParams;
 
     /**
      * @param $id
@@ -22,8 +23,9 @@ class BaseRestController extends Controller
     public function __construct($id, $module, array $config = [])
     {
         parent::__construct($id, $module, $config);
-        $this->args     = Yii::$app->request->queryParams;
-        $this->response = Yii::$app->getResponse();
+        $this->response   = Yii::$app->getResponse();
+        $this->args       = Yii::$app->request->queryParams;
+        $this->bodyParams = Yii::$app->request->bodyParams;
     }
 
     /**
