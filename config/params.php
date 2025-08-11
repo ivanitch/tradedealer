@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'hostInfo' => 'http://localhost/api/v1',
+    'pageSize' => 3,
 ];

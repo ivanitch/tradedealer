@@ -6,11 +6,11 @@ use yii\web\UrlManager;
 
 return [
     'class'               => UrlManager::class,
-    'hostInfo'            => $params['hostInfo'],
     'enablePrettyUrl'     => true,
     'enableStrictParsing' => true,
     'showScriptName'      => false,
     'rules'               => [
-        '' => 'v1/hello/index'
-    ]
+        'GET api/v1/cars'          => 'v1/car/index',
+        'GET api/v1/cars/<id:\d+>' => 'v1/car/view',
+    ],
 ];

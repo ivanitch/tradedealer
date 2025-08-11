@@ -14,7 +14,11 @@ git clone git@github.com:ivanitch/tradedealer.git tradedealer
 
 ## Docker
 ```bash  
+# Собрать и запустить контейнеры 
 docker compose up -d --build
+
+# Запустить контейнеры 
+docker compose up -d
 
 # Container
 docker exec -it tradedealer_php-fpm /bin/bash
@@ -26,10 +30,57 @@ docker exec -it tradedealer_php-fpm composer install
 ```
 
 ## Миграции
-```bash  
+```bash
 docker exec -it tradedealer_php-fpm php yii migrate
 ```
 > Можно взять первоначальные тестовые данные в файле `data/init.sql`
+
+## API
+
+Список автомобилей:
+```bash
+http://localhost/api/v1/cars
+```
+ANSWER:
+```bash
+[
+  {
+    "id": 1,
+    "brand": {
+        "id": 1,
+        "name": "BMW"
+    },
+    "model": {
+        "id": 1,
+        "name": "X5"
+    },
+    "photo": "path/to/bmw_x5.jpg",
+    "price": 5500000
+  }
+  # ...
+]
+```
+
+Авто с детализированной информацией
+```bash
+http://localhost/api/v1/cars/3
+```
+ANSWER:
+```bash
+{
+    "id": 2,
+    "brand": {
+        "id": 1,
+        "name": "BMW"
+    },
+    "model": {
+        "id": 2,
+        "name": "732"
+    },
+    "photo": "path/to/bmw_732.jpg",
+    "price": 7500000
+}
+```
 
 
 
