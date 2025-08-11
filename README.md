@@ -37,7 +37,7 @@ docker exec -it tradedealer_php-fpm php yii migrate
 
 ## API
 
-Список автомобилей:
+### Список автомобилей:
 ```bash
 http://localhost/api/v1/cars
 ```
@@ -61,7 +61,7 @@ ANSWER:
 ]
 ```
 
-Авто с детализированной информацией
+### Авто с детализированной информацией
 ```bash
 http://localhost/api/v1/cars/3
 ```
@@ -82,7 +82,11 @@ ANSWER:
 }
 ```
 
-
+### Расчет кредита по указанным параметрам из кредитной формы
+```bash
+http://localhost/api/v1/credit/calculate?price=1401000&initialPayment=200000,56&loanTerm=64
+````
+ANSWER:
 ```bash
 {
     "programId": 1,
@@ -92,5 +96,22 @@ ANSWER:
 }
 ```
 
-
-
+### Сохранение заявки с указанными параметрами из кредитной формы
+```bash
+http://localhost/api/v1/request
+```
+BODY:
+```json
+{
+    "carId": 1,
+    "programId": 1,
+    "initialPayment": "200000,56",
+    "loanTerm": 64
+}
+```
+ANSWER: 
+```json
+{
+  "success": true
+}
+```

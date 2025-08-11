@@ -9,7 +9,7 @@ use yii\base\Model;
  * @property float $initialPayment Первоначальный взнос
  * @property int $loanTerm Срок кредита в месяцах
  */
-class CalculateForm extends Model
+class CreditCalculateForm extends Model
 {
     public ?int $price = null;
     public ?float $initialPayment = null;

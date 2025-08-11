@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Service;
+declare(strict_types=1);
 
+namespace App\Service;
 
 use App\Model\CreditProgram;
 use yii\web\NotFoundHttpException;
