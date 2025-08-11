@@ -83,4 +83,14 @@ ANSWER:
 ```
 
 
+```bash
+{
+    "programId": 1,
+    "interestRate": 12.3,
+    "monthlyPayment": 25682,
+    "title": "Alfa Energy"
+}
+```
+
+
 

@@ -1,37 +1,41 @@
 {
-    "name": "ivanitch/tradedealer",
-    "description": "TradeDealer | https://ekaterinburg.hh.ru/vacancy/123629783",
-    "keywords": ["yii2", "api", "tradedealer"],
-    "type": "project",
-    "minimum-stability": "stable",
-    "authors": [
-        {
-            "name": "Sergey Ivanov | https://hh.ru/resume/58fe2a56ff0ea7b4180039ed1f536b69703678",
-            "email": "amurweb@gmail.com"
-        }
-    ],
-    "require": {
-        "php": ">=8.4.0",
-        "yiisoft/yii2": "~2.0"
-    },
-    "require-dev": {
-        "symfony/var-dumper": "^7.3"
-    },
-    "config": {
-        "sort-packages": true,
-        "allow-plugins": {
-            "yiisoft/yii2-composer": true
-        }
-    },
-    "repositories": [
-        {
-            "type": "composer",
-            "url": "https://asset-packagist.org"
-        }
-    ],
-    "autoload": {
-        "psr-4": {
-            "App\\": "src/"
-        }
+  "name": "ivanitch/tradedealer",
+  "description": "TradeDealer | https://ekaterinburg.hh.ru/vacancy/123629783",
+  "keywords": [
+    "yii2",
+    "api",
+    "tradedealer"
+  ],
+  "type": "project",
+  "minimum-stability": "stable",
+  "authors": [
+    {
+      "name": "Sergey Ivanov | https://hh.ru/resume/58fe2a56ff0ea7b4180039ed1f536b69703678",
+      "email": "amurweb@gmail.com"
     }
+  ],
+  "require": {
+    "php": ">=8.4.0",
+    "yiisoft/yii2": "~2.0"
+  },
+  "require-dev": {
+    "symfony/var-dumper": "^7.3"
+  },
+  "config": {
+    "sort-packages": true,
+    "allow-plugins": {
+      "yiisoft/yii2-composer": true
+    }
+  },
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://asset-packagist.org"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "App\\": "src/"
+    }
+  }
 }

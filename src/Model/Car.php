@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Model;
 
 use yii\db\ActiveRecord;
@@ -17,9 +19,6 @@ use yii\db\ActiveQuery;
  */
 class Car extends ActiveRecord
 {
-
-    private $name = 'vasya';
-
     public static function tableName(): string
     {
         return '{{%cars}}';
@@ -59,7 +58,7 @@ class Car extends ActiveRecord
         ];
     }
 
-    private function fullName(): string
+    protected function fullName(): string
     {
         return $this->brand->name . ' ' . $this->model->name;
     }
